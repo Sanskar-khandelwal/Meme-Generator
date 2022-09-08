@@ -4,10 +4,29 @@ import data from '../component/data'
 
 
 export  default function  Meme (){
-    const displayConsole = function (){
-        const random = Math.floor(Math.random() * 100 + 1);
- const {url} = data.data.memes[random];
-    }
+
+
+const memes = {
+    topText:"",
+    bottomText: "",
+    randomImage: "https://i.imgflip.com/1g8my4.jpg",
+}
+
+
+
+const [meme, setMeme] = React.useState(memes)
+console.log(memes);
+
+
+ const [memeImage, setMemeImage] = React.useState("https://i.imgflip.com/1g8my4.jpg");
+
+
+ function getMemeImage(){
+    const memesArray = data.data.memes;
+    const randomNumber = Math.floor(Math.random()*100);
+    setMemeImage(memesArray[randomNumber].url);
+ }
+
     return (
 <div className="meme">
 <input type="text" placeholder="above text" />
@@ -15,7 +34,10 @@ export  default function  Meme (){
 <input 
 type="submit" 
 value = "Generate new meme 🤷‍♂️"
-onClick = {displayConsole} />
+onClick = {getMemeImage} />
+
+
+<img src = {memeImage} className = "memeImage" />
 </div>
    
 
