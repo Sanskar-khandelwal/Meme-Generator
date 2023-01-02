@@ -40,25 +40,44 @@ import React, { useState } from "react";
 import memeData from "../component/data";
 
 export default function Meme() {
-  const [memeImage, setMemeImage] = useState(
-    "https://i.imgflip.com/1g8my4.jpg"
-  );
+  const [meme, setMeme] = React.useState({
+    topText: "",
+    bottomText: "",
+    randomImage: "https://i.imgflip.com/1g8my4.jpg",
+  });
+
+  // const [memeImage, setMemeImage] = useState(
+  //   "https://i.imgflip.com/1g8my4.jpg"
+  // );
 
   const memeArray = memeData.data.memes;
   function getMemeImage() {
     const randomNumber = Math.floor(Math.random() * 100 + 1);
     const url = memeArray[randomNumber].url;
-    setMemeImage(url);
+    setMeme((prevMeme) => ({
+      ...prevMeme,
+      randomImage: url,
+    }));
   }
 
   return (
-    <div className="meme">
+    <div className="form">
       <input type="text" placeholder="TOP TEXT" />
       <input type="text" placeholder="BOTTOM TEXT" />
       <button onClick={getMemeImage} className="btn">
         Get New Meme Image 🥸
       </button>
-      <img className="memeImg" src={memeImage} alt="" srcset="" />
+
+      <div className="meme">
+        <img
+          className="memeImg"
+          src={meme.randomImage}
+          alt="This is the place where Api will fetch the meme image"
+          srcset=""
+        />
+        <h2 className="meme--text top"> Hello, I am kiran</h2>
+        <h2 className="meme--text bottom"> Hello</h2>
+      </div>
     </div>
   );
 }
