@@ -87,7 +87,7 @@ export default function Meme() {
           <div className="number-count">
             <span
               className={`count form-number ${
-                numCount.countBottom > 7 ? "form-orange" : "form-light"
+                numCount.countBottom > 20 ? "form-orange" : "form-light"
               } ${numCount.countBottom == 25 && "form-red"}`}
             >
               {numCount.countBottom}
