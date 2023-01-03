@@ -26,7 +26,17 @@ export default function Meme() {
     }));
   }
 
+  const [numCount, setNumCount] = React.useState({
+    countTop: 0,
+    countBottom: 0,
+  });
+
   const handleChange = function (event) {
+    console.log(event.target.dataset.tag);
+    setNumCount((prevNumCount) => ({
+      ...prevNumCount,
+      [event.target.dataset.tag]: event.target.value.length,
+    }));
     setMeme((prevMeme) => ({
       ...prevMeme,
       [event.target.name]: event.target.value,
@@ -36,20 +46,62 @@ export default function Meme() {
   return (
     <main>
       <div className="form">
-        <input
-          type="text"
-          placeholder="TOP TEXT"
-          onChange={handleChange}
-          name="topText"
-          value={meme.topText}
-        />
-        <input
-          type="text"
-          placeholder="BOTTOM TEXT"
-          onChange={handleChange}
-          name="bottomText"
-          value={meme.bottomText}
-        />
+        <div className="form-cover">
+          <input
+            type="text"
+            placeholder="TOP TEXT"
+            onChange={handleChange}
+            name="topText"
+            value={meme.topText}
+            maxLength={25}
+            data-tag="countTop"
+          />
+          <div className="number-count">
+            <span
+              className={`count form-number ${
+                numCount.countTop > 20 ? "form-orange" : "form-light"
+              } ${numCount.countTop == 25 && "form-red"}`}
+            >
+              {numCount.countTop}
+            </span>
+            <span
+              className={`limit form-number ${
+                numCount.countTop == 25 ? "form-red" : "form-light"
+              }`}
+            >
+              25
+            </span>
+          </div>
+        </div>
+
+        <div className="form-cover">
+          <input
+            type="text"
+            placeholder="BOTTOM TEXT"
+            onChange={handleChange}
+            name="bottomText"
+            value={meme.bottomText}
+            maxLength={25}
+            data-tag="countBottom"
+          />
+          <div className="number-count">
+            <span
+              className={`count form-number ${
+                numCount.countBottom > 7 ? "form-orange" : "form-light"
+              } ${numCount.countBottom == 25 && "form-red"}`}
+            >
+              {numCount.countBottom}
+            </span>
+            <span
+              className={`limit form-number ${
+                numCount.countBottom == 25 ? "form-red" : "form-light"
+              }`}
+            >
+              25
+            </span>
+          </div>
+        </div>
+
         <button onClick={getMemeImage} className="btn">
           Get New Meme Image 🥸
         </button>
